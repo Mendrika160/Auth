@@ -5,6 +5,8 @@ import axios from 'axios'
 import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
 import {Button} from '@mui/material'
 import {useNavigate} from 'react-router-dom'
+import { toast } from 'react-toastify';
+
 
 const GoogleBtn = ({text,urlCall}) => {
 
@@ -15,15 +17,22 @@ const GoogleBtn = ({text,urlCall}) => {
 	 useEffect(() => { 
 	    
 	    if(userInfo.name === '' || userInfo.email === '' || userInfo.picture === '' || userInfo.googleId === ''){
-	      console.log('vide :', userInfo)
+	      // toast.warning('info vide',{
+          // 	position: toast.POSITION.TOP_CENTER,
+          // })
+
 	    }else{
 	    	console.log('vide :', userInfo)
 	      	axios.post(urlCall,userInfo)
 		      	.then(({data}) => { 
 		      		if(!data.token){
-
 		      			navigate('/auth/login')
+		      			toast.success('successfully register',{
+				          	position: toast.POSITION.TOP_CENTER,
+				          })
+
 		      		}else{
+		      			localStorage.setItem('chat-key',data.token);
 		      			navigate('/')
 		      		}
 
@@ -37,11 +46,25 @@ const GoogleBtn = ({text,urlCall}) => {
 
 		      			if(error.response.status === 409){
 			      			console.log("error : ", error.response.data.message);
+			      			toast.error(` ${error.response.data.message}`,{
+					          	position: toast.POSITION.TOP_CENTER,
+					          })
 			      		}
 			      		if(error.response.status === 403){
 			      			console.log("error : ", error.response.data.message);
+			      			toast.warning(`${error.response.data.message}`,{
+					          	position: toast.POSITION.TOP_CENTER,
+					          })
 			      		}
-			      		console.log("error ee",error)
+			      		if(error.response.status === 404){
+			      			console.log("error : ", error.response.data.message);
+			      			toast.error(` ${error.response.data.message}`,{
+					          	position: toast.POSITION.TOP_CENTER,
+					          })
+			      		}
+			      		toast.error(` ${error.message}`,{
+					        position: toast.POSITION.TOP_CENTER,
+					     })
 		      		}
 		      		
 		      		

@@ -8,6 +8,7 @@ import GoogleBtn from './GoogleBtn'
 import jwt_decode from "jwt-decode";
 import {Link} from 'react-router-dom'
 import {ButtonContainer,AuthContainer,MainContainer} from './style'
+import { toast, ToastContainer } from 'react-toastify';
 
 function Login() {
 
@@ -16,12 +17,15 @@ function Login() {
 
   const handleSubmit = () => {
         console.log("alert");
+        toast.warning('test',{
+          position: toast.POSITION.TOP_CENTER,
+        })
       
     }
 
   return (
       <>
-
+      <ToastContainer />
       <MainContainer>
 
       <AuthContainer>

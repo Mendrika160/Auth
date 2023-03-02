@@ -6,12 +6,21 @@ import Register from './components/Auth/Register'
 import Home from './components/Home/Home'
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import 'react-toastify/dist/ReactToastify.css';
+import {  ToastContainer } from 'react-toastify';
+
+
 function App() {
   return (
       <>
       <GoogleOAuthProvider clientId="617156272778-je10sbh9jg8tf8ftpkj6rg4r59kh4en1.apps.googleusercontent.com">
         <ThemeProvider theme={theme}>
           <CssBaseline/>
+          <ToastContainer 
+            pauseOnHover
+            autoClose={5000}
+          />
+
 
           <Routes>
             <Route path="/" element={<Home/>}  />
