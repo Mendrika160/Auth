@@ -11,13 +11,13 @@ function PersonList() {
     return (
         <>
             <Grid container sx={{overflow: 'auto'}}>
-                <Grid item md={12}>
+                <Grid item md={12} xs={12} sm={12}>
                     <Person avatar="example" name="User name" style={{position : 'fixed'}}/>
                     <Divider />
                     <SearchField />
 
                 </Grid>
-                <Grid item md={12} sx={{overflow: 'auto'}}>
+                <Grid item md={12} xs={12} sm={12} sx={{overflow: 'auto'}}>
                     <Box sx={{height: '60vh'}}>
 
                         {persons.map(person =>(

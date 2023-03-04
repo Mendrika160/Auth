@@ -6,7 +6,7 @@ const Prompt = () => {
 		<>
 			<Grid container sx={{px : 3}}>
 				
-				<Grid item md={12}>
+				<Grid item md={12} xs={12} sm={12}>
 					<PromptContainer>
 					 <TextField
 					 		fullWidth

@@ -31,7 +31,7 @@ function Messages() {
                         sx={{mb: 5}}
                           >
                         
-                        <Grid item>
+                        <Grid item >
                          <Message message={conversation.text}  />
                         
                          <Typography 
