@@ -1,38 +1,43 @@
-import {Typography,Grid,Container} from '@mui/material'
-import PersonList from './PersonList'
-import Messages from './Messages'
-import Prompt from './Prompt'
+import {Typography,Container,useMediaQuery} from '@mui/material'
+
+import Navbar from '../Appbar/Navbar'
+
+import {useEffect} from 'react'
+import {useNavigate} from 'react-router-dom'
+import {useTheme} from '@mui/material/styles'
+import DesktopHome from './DesktopHome'
+import MobileHome from './MobileHome'
+
 function Home() {
+    const navigate = useNavigate();
 
-    const  example = [0,1,2,3,4,5,6,7,8,9,10,11,12] ;
+    const theme = useTheme();
+    
+    
+    let userInfo = localStorage.getItem('chat-key');
 
-    const userClick = (user) => {
-        console.log("user",user)
-    }
+    //detect the screen dimension
+    const matches = useMediaQuery(theme.breakpoints.down('md'))
+
+
+    useEffect(() => {
+        
+        if(!userInfo){
+            navigate('/auth/login');
+
+        }
+    },[userInfo])
+
+    
     return (
         <>
-        <Container>
-            <Grid container>
-                <Grid item md={3} sx={{ border: '1px solid black' }}>
-                    {example.map(user => (
-                            <PersonList 
-                                key={user}
-                                onClick={(user) => userClick(user)}
-                                />
-                    ))}
-                    
-                    
-                </Grid>
-                <Grid 
-                    item md={9} 
-                    xs={12} 
-                    sx={{ border: '1px solid black' }}>
-                    <Messages />
-                    <Prompt />
-                </Grid>
-            </Grid>
+        <Navbar />
+        <Container sx={{ mt: 10}}>
+        {matches ? <MobileHome/> : <DesktopHome/>}
+            
         </Container>
         </>
+        
     );
 }
 

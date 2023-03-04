@@ -32,7 +32,7 @@ const GoogleBtn = ({text,urlCall}) => {
 				          })
 
 		      		}else{
-		      			localStorage.setItem('chat-key',data.token);
+		      			localStorage.setItem('chat-key',JSON.stringify(data.token));
 		      			navigate('/')
 		      		}
 
