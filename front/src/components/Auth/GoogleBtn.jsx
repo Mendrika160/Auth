@@ -1,8 +1,7 @@
-import {useState,useEffect,useMemo} from 'react'
+import {useState,useEffect} from 'react'
 import googleImg from '../../assets/img/google-logo.png'
-import {googleCallbackUrl} from '../../utils/ApiRoutes';
 import axios from 'axios'
-import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import {  useGoogleLogin } from '@react-oauth/google';
 import {Button} from '@mui/material'
 import {useNavigate} from 'react-router-dom'
 import { toast } from 'react-toastify';
@@ -71,7 +70,7 @@ const GoogleBtn = ({text,urlCall}) => {
 		      	}
 		      	)
 	    }
-	  },[userInfo])
+	  },[userInfo,navigate,urlCall])
 
 	     const googleAuth =  useGoogleLogin({
             onSuccess: codeResponse => {

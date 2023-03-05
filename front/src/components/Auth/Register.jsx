@@ -1,26 +1,21 @@
 import {Typography,TextField,Box,Button,Container,Divider,Card} from '@mui/material'
-import {useNavigate} from 'react-router-dom'
-import googleImg from '../../assets/img/google-logo.png'
-import axios from 'axios' 
+//import {useNavigate} from 'react-router-dom'
+
+//import axios from 'axios' 
 import {googleCallbackUrl} from '../../utils/ApiRoutes';
 import {Link} from 'react-router-dom'
 import GoogleBtn from './GoogleBtn'
 import {ButtonContainer,AuthContainer,MainContainer} from './style'
 function Register() {
 
-    const navigate = useNavigate();
+    
     const handleSubmit = () => {
         console.log("alert");
     }
 
-    const btnGoogleRegister = () => {
-        axios.get(googleCallbackUrl).then((res) => {
-                console.log('res', res)
-            }
-
-        )
-        console.log('click')
-    }
+    
+        
+    
 
     return (
         <>

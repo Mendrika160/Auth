@@ -1,4 +1,4 @@
-import {TextField,Button ,Grid} from '@mui/material'
+import {TextField ,Grid} from '@mui/material'
 import SendIcon from '@mui/icons-material/Send';
 import {PromptContainer} from './style'
 const Prompt = () => {

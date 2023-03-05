@@ -1,4 +1,4 @@
-import {Dot} from './style'
+
 import {Typography} from '@mui/material'
 
 const DotGreen = () => {

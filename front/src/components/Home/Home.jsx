@@ -1,4 +1,4 @@
-import {Typography,Container,useMediaQuery} from '@mui/material'
+import {Container,useMediaQuery} from '@mui/material'
 
 import Navbar from '../Appbar/Navbar'
 
@@ -26,7 +26,7 @@ function Home() {
             navigate('/auth/login');
 
         }
-    },[userInfo])
+    },[userInfo,navigate])
 
     
     return (

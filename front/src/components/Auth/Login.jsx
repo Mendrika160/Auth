@@ -1,14 +1,14 @@
 import {Typography,Box,TextField,Button,Container,Divider,Card,CardContent} from '@mui/material'
-import googleImg from '../../assets/img/google-logo.png'
-import GoogleIcon from '@mui/icons-material/Google';
+
+
 import {googleCallbackUrl} from '../../utils/ApiRoutes';
-import axios from 'axios'
-import {useState,useEffect,useMemo} from 'react'
+//import axios from 'axios'
+//import {useState,useEffect} from 'react'
 import GoogleBtn from './GoogleBtn'
-import jwt_decode from "jwt-decode";
+
 import {Link} from 'react-router-dom'
 import {ButtonContainer,AuthContainer,MainContainer} from './style'
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 function Login() {
 
@@ -25,8 +25,7 @@ function Login() {
 
   return (
       <>
-      <ToastContainer />
-      <MainContainer>
+            <MainContainer>
 
       <AuthContainer>
 

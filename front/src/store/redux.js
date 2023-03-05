@@ -9,13 +9,13 @@ const userSlice = createSlice({
 
     reducers: {
       
-        setModalOpen : (state,action) => {
+        setContactOpen : (state,action) => {
             //{ type : "SET_MODAL_OPEN", payload : "boolea"}
             state.modalOpen = action.payload
 
             return state;
         },
-        setModalClose : (state,action) => {
+        setMessageOpen : (state,action) => {
             //{ type : "GET_USER_ID", payload : "userId"}
             state.modalOpen = action.payload
             return state;
@@ -27,7 +27,7 @@ const userSlice = createSlice({
 
 });
 
-export const { setModalOpen,setModalClose } = userSlice.actions;
+export const { setContactOpen,setMessageOpen } = userSlice.actions;
 
 export const store = configureStore({
     

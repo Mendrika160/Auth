@@ -1,7 +1,7 @@
-import {Typography,Grid,Divider,Box} from '@mui/material'
-import GoogleIcon from '@mui/icons-material/Google';
+import {Grid,Divider,Box} from '@mui/material'
+
 import Person from './Person'
-import {FixedPosition} from './style'
+
 import SearchField from './SearchField'
 
 

@@ -1,4 +1,4 @@
-import {Typography,Grid,Container,Box} from '@mui/material'
+import {Typography,Grid,Container} from '@mui/material'
 import Message from './Message'
 import Person from '../Person/Person'
 function Messages() {
@@ -20,7 +20,8 @@ function Messages() {
                 height : '60vh',
                 overflow: 'auto' ,
                 borderTop: '1px solid #e0e0e0',
-                borderBottom: '1px solid #e0e0e0'
+                borderBottom: '1px solid #e0e0e0',
+
             }}>
             {
                 conversations.map(conversation => (
@@ -32,12 +33,13 @@ function Messages() {
                           >
                         
                         <Grid item >
-                         <Message message={conversation.text}  />
+                         <Message message={conversation.text} sender={conversation.sender} />
                         
                          <Typography 
                             variant="caption"
                             sx={{
                                     float: conversation.sender === 'me' ? 'right' : 'left',
+
                                     fontSize: '9px',
                                     marginTop:'2px'
                                 }}

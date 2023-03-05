@@ -1,21 +1,18 @@
-import {Modal,Typography,Grid,Paper} from '@mui/material'
-import { useSelector } from "react-redux/es/exports";
-import { useDispatch } from 'react-redux'
-import {  setModalClose } from '../../store/redux'
-import {ModalContainer}  from './style'
+import {Grid} from '@mui/material'
+
 import PersonList from './PersonList'
 
-const ListPersonModal = () => {
-	const {modalOpen} = useSelector((state) => state.users);
+const ListPersonModal = ({md,sm,xs,borderRight}) => {
+	
 	
 
 	return (
 		<>
-			<Grid container component={Paper} sx={{  height: 'auto'}}>
-                <Grid item md={12} sm={12} sx={{ overflow: 'hidden' }}>
+			
+                <Grid item md={md} sm={sm} xs={xs} sx={{ overflow: 'hidden',borderRight: borderRight && borderRight }}>
                  	<PersonList />                    
                 </Grid>
-            </Grid>
+            
 		</>
 		)
 }
