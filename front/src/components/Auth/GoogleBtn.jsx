@@ -61,6 +61,12 @@ const GoogleBtn = ({text,urlCall}) => {
 					          	position: toast.POSITION.TOP_CENTER,
 					          })
 			      		}
+			      		if(error.response.status === 500){
+			      			console.log("error : ", error.response.data.message);
+			      			toast.error(` ${error.response.data.message}`,{
+					          	position: toast.POSITION.TOP_CENTER,
+					          })
+			      		}
 			      		toast.error(` ${error.message}`,{
 					        position: toast.POSITION.TOP_CENTER,
 					     })

@@ -1,9 +1,27 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
+const mergeUserInfo = (userInfo, payload) => {
+    const { _id,name, email, picture } = payload;
+    return {
+     ...userInfo,
+     _id,
+     name,
+     email,
+     picture
+    
+    };
+};
+
 const userSlice = createSlice({
     name: "users",
     initialState : {
-       modalOpen: false
+       modalOpen: false,
+       userInfo : {
+        _id: '',
+        name: '',
+        email: '',
+        picture: ''
+       }
     
     },
 
@@ -20,6 +38,14 @@ const userSlice = createSlice({
             state.modalOpen = action.payload
             return state;
         },
+        getUser: (state,action) => {
+           
+            state.userInfo = mergeUserInfo(state.userInfo,action.payload)
+            return state;
+
+            
+
+        }
 
 
         
@@ -27,7 +53,7 @@ const userSlice = createSlice({
 
 });
 
-export const { setContactOpen,setMessageOpen } = userSlice.actions;
+export const { setContactOpen,setMessageOpen,getUser } = userSlice.actions;
 
 export const store = configureStore({
     

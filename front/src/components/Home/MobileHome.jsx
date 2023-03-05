@@ -13,7 +13,7 @@ const MobileHome = () => {
 		<>
 			<Grid container component={Paper} sx={{  height: 'auto'}}>
 
-			{modalOpen ? <ListPersonModal sm={12} xs={12}/> : <MessageList sm={12} xs={12}/>}
+			{modalOpen ===false ? <ListPersonModal sm={12} xs={12}/> : <MessageList sm={12} xs={12}/>}
 			</Grid>
         
 		</>

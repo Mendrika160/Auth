@@ -1,6 +1,6 @@
 import {useEffect} from 'react'
 import {AppBar,Toolbar,IconButton,Typography,Badge} from '@mui/material'
-
+import {useNavigate} from 'react-router-dom'
 import PersonIcon from '@mui/icons-material/Person';
 import MessageIcon from '@mui/icons-material/Message';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -12,7 +12,7 @@ import {  setContactOpen } from '../../store/redux'
 const Navbar = () => {
 
 	const dispactch = useDispatch();
-	
+	const navigate = useNavigate();
 	const {modalOpen} = useSelector((state) => state.users);
 
 	useEffect(() => {
@@ -21,12 +21,18 @@ const Navbar = () => {
 	},[modalOpen])
 
 	const showContact = () => {
-		dispactch(setContactOpen(true))
+		dispactch(setContactOpen(false))
 		console.log('click')
 	}
 
 	const showMessage = () => {
-		dispactch(setContactOpen(false))
+		dispactch(setContactOpen(true))
+	}
+
+	const logoutUser = () => {
+		localStorage.removeItem('chat-key');
+		navigate('/auth/login');
+
 	}
 
 	return(
@@ -68,6 +74,7 @@ const Navbar = () => {
 		          aria-label="show 17 new notifications"
 		          color="inherit"
 		          sx={{marginLeft: 'auto'}}
+		          onClick={logoutUser}
 		        >
 		          
 		            <LogoutIcon />
