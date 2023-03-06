@@ -182,9 +182,10 @@ const getUserInfo = async (req,res) => {
 
 
 const getAllUser = async (req,res) => {
-	const {currentId} = req.params;
+	const {id} = req.params;
+	console.log('id',req.params)
 	try{
-		User.find({ _id: { $ne: currentId } }, (err, users) => {
+		User.find({ _id: { $ne: id } }, (err, users) => {
 		  if (err) {
 		    res.status(403).send({error : true, message : error.message})
 		  } else {

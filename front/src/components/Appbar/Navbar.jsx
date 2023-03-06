@@ -7,7 +7,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import {IconMenuContainer} from './style'
 import { useSelector } from "react-redux/es/exports";
 import { useDispatch } from 'react-redux'
-import {  setContactOpen } from '../../store/redux'
+import {  setContactOpen,setMessageOpen } from '../../store/redux'
 
 const Navbar = () => {
 
@@ -26,7 +26,7 @@ const Navbar = () => {
 	}
 
 	const showMessage = () => {
-		dispactch(setContactOpen(true))
+		dispactch(setMessageOpen(true))
 	}
 
 	const logoutUser = () => {

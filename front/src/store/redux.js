@@ -21,7 +21,8 @@ const userSlice = createSlice({
         name: '',
         email: '',
         picture: ''
-       }
+       },
+       selectedPerson:null
     
     },
 
@@ -45,6 +46,11 @@ const userSlice = createSlice({
 
             
 
+        },
+        getSelectedPerson: (state,action) => {
+            state.selectedPerson = action.payload
+            console.log("selec",state.selectedPerson)
+            return state;
         }
 
 
@@ -53,7 +59,7 @@ const userSlice = createSlice({
 
 });
 
-export const { setContactOpen,setMessageOpen,getUser } = userSlice.actions;
+export const { setContactOpen,setMessageOpen,getUser,getSelectedPerson } = userSlice.actions;
 
 export const store = configureStore({
     

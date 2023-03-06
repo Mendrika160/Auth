@@ -7,13 +7,17 @@ import DesktopHome from './DesktopHome'
 import MobileHome from './MobileHome'
 import axios from 'axios'
 
+import { useSelector } from "react-redux/es/exports";
+import { useDispatch } from 'react-redux'
+import {  setMessageOpen } from '../../store/redux'
 
 
 function Home() {
     
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const theme = useTheme();
-    
+    const {selectedPerson,modalOpen} = useSelector((state) => state.users);
     
     let userInfoStorage = localStorage.getItem('chat-key');
 
@@ -32,6 +36,18 @@ function Home() {
         
 
     },[userInfoStorage,navigate])
+
+    useEffect(() => {
+        if(selectedPerson !== null){
+            dispatch(setMessageOpen(true))
+        }
+
+    },[theme,selectedPerson])
+
+    useEffect(() => {
+        console.log("Home",modalOpen)
+
+    },[modalOpen])
     
 
     

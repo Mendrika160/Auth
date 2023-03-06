@@ -1,12 +1,27 @@
 import {MenuItem ,MenuList,IconButton,Avatar,ListItemIcon,ListItemText,Typography}from '@mui/material';
-
+import {useEffect,useState} from 'react'
 import CircleIcon from '@mui/icons-material/Circle';
-const Person = ({avatar, name,onClick}) => {
+import { useSelector } from "react-redux/es/exports";
 
+const Person = ({avatar, name,onClick,}) => {
+
+	//const [bgColorState, setBgColorState] = useState(bgColor);	
+	  
+	
+	 const handlePersonClick = () => {
+	    onClick();
+	    
+	 };
 	return(
 		<>
-		<MenuList  >
-			<MenuItem sx={{ width : '100%'}} onClick={onClick}>
+		<MenuList disablePadding sx={{ padding: '1px 0px'}} >
+			<MenuItem 
+				sx={{ 
+					width : '100%',
+					
+				}} 
+				onClick={handlePersonClick}
+			>
 				<ListItemIcon>
 					<IconButton >
 		                <Avatar alt="Remy Sharp" srcSet={avatar} />
