@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const app = express();
 const connectDB = require('./config/db');
 const userRoute = require('./routes/userRouter')
+const authRoute = require('./routes/authRouter')
 const port = process.env.PORT || 3000;
 
 
@@ -46,10 +47,12 @@ app.use(express.urlencoded({ extended: true }));
 
 //route
 
-app.use('/auth',userRoute);
+app.use('/auth',authRoute);
+app.use('/api',userRoute)
+
 
 app.use(function(err, req, res, next) {
-  console.error(err.stack);
+  console.error("error stack",err.stack);
   res.status(500).send('Something broke!');
 });
 

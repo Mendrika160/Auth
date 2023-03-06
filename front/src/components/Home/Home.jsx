@@ -1,38 +1,65 @@
-import {Typography,Grid,Container} from '@mui/material'
-import PersonList from './PersonList'
-import Messages from './Messages'
-import Prompt from './Prompt'
+import {Container,useMediaQuery} from '@mui/material'
+import Navbar from '../Appbar/Navbar'
+import {useEffect} from 'react'
+import {useNavigate} from 'react-router-dom'
+import {useTheme} from '@mui/material/styles'
+import DesktopHome from './DesktopHome'
+import MobileHome from './MobileHome'
+import axios from 'axios'
+
+import { useSelector } from "react-redux/es/exports";
+import { useDispatch } from 'react-redux'
+import {  setMessageOpen } from '../../store/redux'
+
+
 function Home() {
+    
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const theme = useTheme();
+    const {selectedPerson,modalOpen} = useSelector((state) => state.users);
+    
+    let userInfoStorage = localStorage.getItem('chat-key');
 
-    const  example = [0,1,2,3,4,5,6,7,8,9,10,11,12] ;
+    //detect the screen dimension
+    const matches = useMediaQuery(theme.breakpoints.down('md'))
 
-    const userClick = (user) => {
-        console.log("user",user)
-    }
+
+    useEffect(() => {
+
+        
+        if(!userInfoStorage){
+            navigate('/auth/login');
+
+        }
+            
+        
+
+    },[userInfoStorage,navigate])
+
+    useEffect(() => {
+        if(selectedPerson !== null){
+            dispatch(setMessageOpen(true))
+        }
+
+    },[theme,selectedPerson])
+
+    useEffect(() => {
+        console.log("Home",modalOpen)
+
+    },[modalOpen])
+    
+
+    
     return (
         <>
-        <Container>
-            <Grid container>
-                <Grid item md={3} sx={{ border: '1px solid black' }}>
-                    {example.map(user => (
-                            <PersonList 
-                                key={user}
-                                onClick={(user) => userClick(user)}
-                                />
-                    ))}
-                    
-                    
-                </Grid>
-                <Grid 
-                    item md={9} 
-                    xs={12} 
-                    sx={{ border: '1px solid black' }}>
-                    <Messages />
-                    <Prompt />
-                </Grid>
-            </Grid>
+        <Navbar />
+        <Container sx={{ mt: 10}}>
+        {matches ? <MobileHome/> : <DesktopHome/>}
+            
         </Container>
         </>
+        
     );
 }
 

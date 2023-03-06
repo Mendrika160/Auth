@@ -1,9 +1,12 @@
 const router = require('express').Router();
-const {signUpWithGoogleUser,signInWithGoogleUser} = require('../controller/UserController');
+const {getUserInfo,getAllUser} = require('../controller/UserController');
 
-// route /auth/google
-router.post('/google/signup',signUpWithGoogleUser);
-router.post('/google/signin',signInWithGoogleUser);
+// route /api/user/:id
+router.get('/user/:id',getUserInfo);
+
+//route /api/users
+router.get('/users/:id',getAllUser);
+
 
 
 
