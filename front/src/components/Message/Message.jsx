@@ -1,7 +1,14 @@
 import {Typography,Grid} from '@mui/material'
-
+import {useEffect} from 'react'
 
 function Message({message,sender}) {
+
+    
+    useEffect(() => {
+        console.log("msg in Message",message)
+
+    },[message])
+
     return (
         <>
 
@@ -13,7 +20,8 @@ function Message({message,sender}) {
                     borderRadius:'10px',
                     mt: 4,
                     maxWidth : '250px' ,
-                    backgroundColor: sender === 'me' && '#113f67' ,
+                    backgroundColor: sender ? '#fff' : '#113f67'  ,
+                     
                     p:1,
                 }}
                     >
@@ -21,7 +29,10 @@ function Message({message,sender}) {
                 <Grid item >
                     <Typography 
                         variant="body-2"
-                        sx={{marginLeft: 'auto',color: sender === 'me' && '#fff' ,}} 
+                        sx={{
+                            marginLeft: 'auto' ,
+                            color: !sender  && '#fff'
+                        }} 
                         component="p"
 
                         >

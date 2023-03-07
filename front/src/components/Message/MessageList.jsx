@@ -1,6 +1,6 @@
 import {Grid} from '@mui/material'
 import Messages from './Messages'
-import Prompt from '../Home/Prompt'
+import Prompt from '../Prompt/Prompt'
 const MessageList = ({md,sm,xs}) => {
 
 	return (

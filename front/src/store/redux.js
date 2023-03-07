@@ -16,13 +16,13 @@ const userSlice = createSlice({
     name: "users",
     initialState : {
        modalOpen: false,
-       userInfo : {
-        _id: '',
-        name: '',
-        email: '',
-        picture: ''
-       },
-       selectedPerson:null
+       
+       selectedPerson:null,
+       chat:{
+        from: null,
+        to: null,
+        message: ''
+       }
     
     },
 
@@ -40,16 +40,25 @@ const userSlice = createSlice({
             return state;
         },
         getUser: (state,action) => {
-           
-            state.userInfo = mergeUserInfo(state.userInfo,action.payload)
-            return state;
-
             
+            //state.userInfo = mergeUserInfo(state.userInfo,action.payload)
+            console.log('action in getUser',action.payload)
+            state.chat.from = action.payload
+            
+            return state;
 
         },
         getSelectedPerson: (state,action) => {
+            state.chat.to = action.payload
             state.selectedPerson = action.payload
-            console.log("selec",state.selectedPerson)
+            //console.log("selec person",state.selectedPerson)
+            console.log('action in selP (to)',action.payload)
+            return state;
+        },
+        getMessage: (state,action) => {
+            
+            state.chat.message = action.payload
+
             return state;
         }
 
@@ -59,7 +68,7 @@ const userSlice = createSlice({
 
 });
 
-export const { setContactOpen,setMessageOpen,getUser,getSelectedPerson } = userSlice.actions;
+export const { setContactOpen,setMessageOpen,getUser,getSelectedPerson,getMessage} = userSlice.actions;
 
 export const store = configureStore({
     

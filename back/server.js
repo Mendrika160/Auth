@@ -6,8 +6,9 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const app = express();
 const connectDB = require('./config/db');
-const userRoute = require('./routes/userRouter')
-const authRoute = require('./routes/authRouter')
+const userRoute = require('./routes/userRoute')
+const authRoute = require('./routes/authRoute')
+const messageRoute = require('./routes/messageRoute')
 const port = process.env.PORT || 3000;
 
 
@@ -48,7 +49,8 @@ app.use(express.urlencoded({ extended: true }));
 //route
 
 app.use('/auth',authRoute);
-app.use('/api',userRoute)
+app.use('/api',userRoute);
+app.use('/message',messageRoute);
 
 
 app.use(function(err, req, res, next) {

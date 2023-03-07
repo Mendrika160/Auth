@@ -6,7 +6,7 @@ import SearchField from './SearchField'
 import jwtDecode from 'jwt-decode'
 import {getUserInfo,getAllUserRoute} from '../../utils/ApiRoutes'
 import { useDispatch } from 'react-redux'
-import {  getSelectedPerson } from '../../store/redux'
+import {  getSelectedPerson,getUser } from '../../store/redux'
 import { useSelector } from "react-redux/es/exports";
 import {toast} from 'react-toastify'
 
@@ -14,7 +14,7 @@ function PersonList() {
     
     const dispatch = useDispatch();
 
-    
+    const {chat} = useSelector(state => state.users);
     const [currentUser,setCurrentUser] = useState(null);
     const [users,setUsers] = useState(null);
     const [bgColor,setBgColor] = useState({});
@@ -25,11 +25,13 @@ function PersonList() {
             const {id} = jwtDecode(userInfoStorage);
             axios.get(`${getUserInfo}/${id}`)
                 .then(({data}) => {
-                    console.log(data.user);
+                    //console.log("data user in PersonList", data.user);
                     setCurrentUser(data.user);
+                    console.log('user Id (from)',data.user._id);
+                    dispatch(getUser(data.user._id))
                     axios.get(`${getAllUserRoute}/${id}`)
                         .then(({data}) => {
-                            console.log("uuuu",data)
+                            //console.log("uuuu",data)
                             setUsers(data.users);
                         })
                         .catch(error => {
@@ -50,9 +52,14 @@ function PersonList() {
 
     },[userInfoStorage])
 
+    useEffect(() => {
+        console.log('chat state in PersonList', chat);
+
+    },[chat])
 
     const handleClick = (personId,username) => {
         setBgColor(prevState => ({...prevState, [personId]: '#e0e0e0'}));
+        console.log("id Selectedperson",personId);
         dispatch(getSelectedPerson(personId));
         //setSelectedPerson(username)
         
