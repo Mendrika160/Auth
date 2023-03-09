@@ -16,6 +16,7 @@ const userSlice = createSlice({
     name: "users",
     initialState : {
        modalOpen: false,
+       messages:[],
        
        selectedPerson:null,
        chat:{
@@ -60,15 +61,25 @@ const userSlice = createSlice({
             state.chat.message = action.payload
 
             return state;
-        }
+        },
+        setMessages : (state, action) => {
+            state.messages = [...action.payload]
+            return state;
 
+        },
+        addArrivalMessage: (state,action) => {
+            console.log('addArrivalMessage', action.payload)
+            state.messages = state.messages.concat(action.payload)
+
+        }
+      
 
         
     }
 
 });
 
-export const { setContactOpen,setMessageOpen,getUser,getSelectedPerson,getMessage} = userSlice.actions;
+export const { setContactOpen,setMessageOpen,getUser,getSelectedPerson,getMessage,setMessages,addArrivalMessage} = userSlice.actions;
 
 export const store = configureStore({
     

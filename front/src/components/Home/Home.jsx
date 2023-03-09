@@ -9,7 +9,7 @@ import axios from 'axios'
 
 import { useSelector } from "react-redux/es/exports";
 import { useDispatch } from 'react-redux'
-import {  setMessageOpen } from '../../store/redux'
+import {  setMessageOpen,getUser } from '../../store/redux'
 
 
 function Home() {

@@ -17,7 +17,7 @@ const addMessage = async (req,res) => {
 			res.status(403).send({error : true, message : "Failed to add Message"})
 		}
 
-	}catch(err){
+	}catch(error){
 		res.status(500).send({error : true, message : error.message})
 	}
 

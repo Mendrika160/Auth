@@ -4,17 +4,19 @@ import {PromptContainer} from './style'
 import EmojiPickerComponent from './EmojiPickerComponent'
 import {useState,useEffect} from 'react'
 import axios from 'axios'
-import { getMessage} from '../../store/redux'
+import { getMessage,setMessages,addArrivalMessage} from '../../store/redux'
 import {sendMessageRoute} from '../../utils/ApiRoutes'
 import { useSelector } from "react-redux/es/exports";
 import { useDispatch } from 'react-redux'
 import {toast} from 'react-toastify'
 
 
-const Prompt = () => {
-	const {chat} = useSelector(state => state.users);
+const Prompt = ({socket}) => {
+	const {chat,messages} = useSelector(state => state.users);
 	const [message,setMessage] = useState("");
+	const [arrivalMessage,setArrivalMessage] = useState(null)
 	const dispatch = useDispatch();
+
 
 	const emojiClick = (emoji) => {
 		console.log('emoji',emoji);
@@ -22,8 +24,8 @@ const Prompt = () => {
 	}
 	const handleMessageChange = (e) => {
 		setMessage(e.target.value)
-		//dispatch(getMessage(e.target.value))
-		console.log('message', message);
+		dispatch(getMessage(e.target.value))
+	
 
 	}
 
@@ -31,20 +33,39 @@ const Prompt = () => {
 		e.preventDefault();
 				
 		axios.post(sendMessageRoute,chat)
-			.then(res => {
-				setMessage(""); 
+			.then(res => { 
 				console.log(res)})
 			.catch(error => {
 				toast.error(` ${error.message}`,{
 					 position: toast.POSITION.TOP_CENTER,
 				})
 			})
+
+			socket.current.emit("send-msg",chat)
+				const msgs = [...messages]
+				msgs.push({fromSelf: true,message: message}) 
+				dispatch(setMessages(msgs))
+				setMessage("");
+
+			
 	}
+	useEffect(() => {
+		if(socket.current){
+			socket.current.on("msg-receive",(message) => {
+				setArrivalMessage({fromSelf: false,message:message})
+				console.log('msg-receive ',message)
+
+			})
+		}
+	})
 
 	useEffect(() => {
-		console.log('chat state in Prompt', chat);
 
-	},[chat])
+		arrivalMessage && dispatch(addArrivalMessage(arrivalMessage))
+		
+	},[arrivalMessage,dispatch])
+
+	
 	return (
 		<>
 			<Grid container sx={{px : 3}}>

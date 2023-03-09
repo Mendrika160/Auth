@@ -9,6 +9,7 @@ const connectDB = require('./config/db');
 const userRoute = require('./routes/userRoute')
 const authRoute = require('./routes/authRoute')
 const messageRoute = require('./routes/messageRoute')
+const socket = require("socket.io");
 const port = process.env.PORT || 3000;
 
 
@@ -58,7 +59,34 @@ app.use(function(err, req, res, next) {
   res.status(500).send('Something broke!');
 });
 
-app.listen(port,() =>{
+//server
+const server = app.listen(port,() =>{
 	console.log(`Server running on ${port}` )
+
+})
+
+//the webSocket
+const io = socket(server,{
+	cors:{
+		...corsOptions
+	}
+})
+
+global.onlineUsers = new Map();
+
+io.on("connection",(socket) =>{
+	global.chatSocket = socket;
+	socket.on("add-user",(userId) => {
+		onlineUsers.set(userId,socket.id)
+	})
+
+	socket.on("send-msg",(data) => {
+		const sendUserSocket = onlineUsers.get(data.to)
+		console.log('data :',data)
+		if(sendUserSocket){
+			socket.to(sendUserSocket).emit("msg-receive",data.message)
+			console.log("test: ",socket.to(sendUserSocket).emit("msg-receive",data.message))
+		}
+	})
 
 })

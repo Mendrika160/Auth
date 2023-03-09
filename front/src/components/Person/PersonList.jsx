@@ -1,14 +1,16 @@
 import {Grid,Divider,Box} from '@mui/material'
 import axios from 'axios'
 import Person from './Person'
-import {useEffect,useState} from 'react'
+import {useEffect,useState,useRef} from 'react'
 import SearchField from './SearchField'
 import jwtDecode from 'jwt-decode'
-import {getUserInfo,getAllUserRoute} from '../../utils/ApiRoutes'
+import host,{getUserInfo,getAllUserRoute} from '../../utils/ApiRoutes'
 import { useDispatch } from 'react-redux'
 import {  getSelectedPerson,getUser } from '../../store/redux'
 import { useSelector } from "react-redux/es/exports";
 import {toast} from 'react-toastify'
+
+
 
 function PersonList() {
     
@@ -18,6 +20,8 @@ function PersonList() {
     const [currentUser,setCurrentUser] = useState(null);
     const [users,setUsers] = useState(null);
     const [bgColor,setBgColor] = useState({});
+    //socket
+    
     let userInfoStorage = localStorage.getItem('chat-key');
 
     useEffect(() => {
@@ -52,16 +56,13 @@ function PersonList() {
 
     },[userInfoStorage])
 
-    useEffect(() => {
-        console.log('chat state in PersonList', chat);
-
-    },[chat])
+   
 
     const handleClick = (personId,username) => {
         setBgColor(prevState => ({...prevState, [personId]: '#e0e0e0'}));
         console.log("id Selectedperson",personId);
         dispatch(getSelectedPerson(personId));
-        //setSelectedPerson(username)
+        
         
     }
     return (
