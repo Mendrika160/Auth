@@ -15,6 +15,7 @@ const Prompt = ({socket}) => {
 	const {chat,messages} = useSelector(state => state.users);
 	const [message,setMessage] = useState("");
 	const [arrivalMessage,setArrivalMessage] = useState(null)
+	const [isSend,setIsSend] = useState(false)
 	const dispatch = useDispatch();
 
 
@@ -34,33 +35,43 @@ const Prompt = ({socket}) => {
 				
 		axios.post(sendMessageRoute,chat)
 			.then(res => { 
-				console.log(res)})
+				socket.emit("send-msg",chat)
+				console.log("when socket send",socket)  
+				const msgs = [...messages]
+				msgs.push({fromSelf: true,message: message}) 
+				dispatch(setMessages(msgs))
+				setMessage("");
+				setIsSend(prevState => !prevState);
+			
+
+			})
 			.catch(error => {
 				toast.error(` ${error.message}`,{
 					 position: toast.POSITION.TOP_CENTER,
 				})
 			})
-
-			socket.current.emit("send-msg",chat)
-				const msgs = [...messages]
-				msgs.push({fromSelf: true,message: message}) 
-				dispatch(setMessages(msgs))
-				setMessage("");
-
 			
 	}
+	
+	
+	
 	useEffect(() => {
-		if(socket.current){
-			socket.current.on("msg-receive",(message) => {
+			console.log("isSend",isSend)
+		
+			socket.on("msg-recieve",(message) => {
+				console.log("mandeha")
 				setArrivalMessage({fromSelf: false,message:message})
-				console.log('msg-receive ',message)
+				console.log('msg-receive... ',message)
 
 			})
-		}
-	})
+		
+
+	},[isSend])
+
+
 
 	useEffect(() => {
-
+		console.log('arrival message ',arrivalMessage)
 		arrivalMessage && dispatch(addArrivalMessage(arrivalMessage))
 		
 	},[arrivalMessage,dispatch])

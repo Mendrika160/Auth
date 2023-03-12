@@ -3,11 +3,6 @@ import {useEffect} from 'react'
 
 function Message({message,sender}) {
 
-    
-    useEffect(() => {
-        console.log("msg in Message",message)
-
-    },[message])
 
     return (
         <>

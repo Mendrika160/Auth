@@ -26,12 +26,11 @@ connectDB();
 
 
 //cors
-const corsOptions =  {
-	origin: ["http://localhost:3000"],
-	methods: "GET,POST,PUT,DELETE",
-	credentials:true,
-}
-app.use(cors(corsOptions));
+// const corsOptions =  {
+// 	origin: ["http://localhost:3000"],
+// 	credentials:true,
+// }
+app.use(cors());
 
 
 //log request
@@ -68,7 +67,8 @@ const server = app.listen(port,() =>{
 //the webSocket
 const io = socket(server,{
 	cors:{
-		...corsOptions
+		origin: ["http://localhost:3000"],
+		credentials:true,
 	}
 })
 
@@ -77,16 +77,27 @@ global.onlineUsers = new Map();
 io.on("connection",(socket) =>{
 	global.chatSocket = socket;
 	socket.on("add-user",(userId) => {
+		console.log('selectedPreson',userId);
 		onlineUsers.set(userId,socket.id)
+		console.log("onlineUsers",onlineUsers)
 	})
 
 	socket.on("send-msg",(data) => {
+		console.log(typeof(onlineUsers))
 		const sendUserSocket = onlineUsers.get(data.to)
-		console.log('data :',data)
+		console.log('sendUserSocket',sendUserSocket)
+		console.log("data.to: ",data.to)
 		if(sendUserSocket){
-			socket.to(sendUserSocket).emit("msg-receive",data.message)
-			console.log("test: ",socket.to(sendUserSocket).emit("msg-receive",data.message))
+			//io.to(sendUserSocket).emit("msg-recieve",data.message)
+			console.log("test: ",data.message)
+			socket.broadcast.to(sendUserSocket).emit("msg-recieve",data.message);
 		}
+
+			
+		
 	})
 
+	
+
 })
+

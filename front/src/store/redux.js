@@ -53,7 +53,7 @@ const userSlice = createSlice({
             state.chat.to = action.payload
             state.selectedPerson = action.payload
             //console.log("selec person",state.selectedPerson)
-            console.log('action in selP (to)',action.payload)
+            
             return state;
         },
         getMessage: (state,action) => {
@@ -68,8 +68,9 @@ const userSlice = createSlice({
 
         },
         addArrivalMessage: (state,action) => {
-            console.log('addArrivalMessage', action.payload)
+            console.log('addArrivalMessage eto', action.payload)
             state.messages = state.messages.concat(action.payload)
+            
 
         }
       
